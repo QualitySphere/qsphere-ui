@@ -96,16 +96,16 @@
         </el-form-item>
         <br>
         <el-divider>Issue Configuration</el-divider>
-        <el-form-item label="Requirement">
+        <el-form-item label="Sprint">
           <el-col :span="4">
             <el-select
-              v-model="sprintData.requirementsField"
+              v-model="sprintData.issue_config.sprint.field"
               filterable
               clearable
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in sprintData.requirementsField"
+                v-for="item in ['string']"
                 :key="item"
                 :label="item"
                 :value="item">
@@ -115,7 +115,42 @@
           <el-col class="line" :span="1">-</el-col>
           <el-col :span="18">
             <el-select
-              v-model="sprintData.requirementsValue"
+              v-model="sprintData.issue_config.sprint.value"
+              multiple
+              filterable
+              clearable
+              allow-create
+              placeholder="Value"
+              style="width: 100%;">
+              <el-option
+                v-for="item in sprintData.issue_config.sprint.value"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-select>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="Requirement">
+          <el-col :span="4">
+            <el-select
+              v-model="sprintData.issue_config.requirement.field"
+              filterable
+              clearable
+              placeholder="Field"
+              style="width: 100%;">
+              <el-option
+                v-for="item in ['string']"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-select>
+          </el-col>
+          <el-col class="line" :span="1">-</el-col>
+          <el-col :span="18">
+            <el-select
+              v-model="sprintData.issue_config.requirement.value"
               multiple
               filterable
               clearable
@@ -123,23 +158,24 @@
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
-                v-for="item in sprintData.requirementsValue"
+                v-for="item in sprintData.issue_config.requirement.value"
                 :key="item"
                 :label="item"
                 :value="item">
               </el-option>
             </el-select>
+          </el-col>
         </el-form-item>
         <el-form-item label="Found In Version">
           <el-col :span="4">
             <el-select
-              v-model="sprintData.versionField"
+              v-model="sprintData.issue_config.version.field"
               filterable
               clearable
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in sprintData.versionFiled"
+                v-for="item in ['string']"
                 :key="item"
                 :label="item"
                 :value="item">
@@ -149,14 +185,15 @@
           <el-col class="line" :span="1">-</el-col>
           <el-col :span="18">
             <el-select
-              v-model="sprintData.versionValue"
+              v-model="sprintData.issue_config.version.value"
+              multiple
               filterable
               clearable
               allow-create
               placeholder="Value"
               style="width: 100%;">
               <el-option
-                v-for="item in sprintData.versionValue"
+                v-for="item in sprintData.issue_config.version.value"
                 :key="item"
                 :label="item"
                 :value="item">
@@ -167,14 +204,13 @@
         <el-form-item label="Found In RC">
           <el-col :span="4">
             <el-select
-              v-model="sprintData.rcsField"
+              v-model="sprintData.issue_config.rc.field"
               filterable
               clearable
-              @focus="listRC()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.rcsField"
+                v-for="item in ['string']"
                 :key="item"
                 :label="item"
                 :value="item">
@@ -184,15 +220,16 @@
           <el-col class="line" :span="1">-</el-col>
           <el-col :span="18">
             <el-select
-              v-model="sprintData.rcsValue"
+              v-model="sprintData.issue_config.rc.value"
               multiple
               filterable
               clearable
               allow-create
+              @focus="listRC()"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
-                v-for="item in sprintData.rcsValue"
+                v-for="item in selection.rcs"
                 :key="item"
                 :label="item"
                 :value="item">
@@ -203,7 +240,7 @@
         <el-form-item label="Issue Type">
           <el-col :span="4">
             <el-select
-              v-model="sprintData.issue.types"
+              v-model="sprintData.issue_config.type.field"
               clearable
               filterable
               @focus="listIssueType()"
@@ -211,28 +248,28 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.issue_types"
-                :key="item.key"
+                :key="item.value"
                 :label="item.value"
-                :value="item.value">
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
           <el-col class="line" :span="1">-</el-col>
           <el-col :span="18">
             <el-select
-              v-model="sprintData.issue.types"
+              v-model="sprintData.issue_config.type.value"
               multiple
               clearable
               filterable
               allow-create
-              @focus="listIssueType()"
+              @focus="listIssueTypeStatus()"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.issue_types"
-                :key="item.key"
+                v-for="item in selection.issue_types_statuses"
+                :key="item.value"
                 :label="item.value"
-                :value="item.value">
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -240,14 +277,14 @@
         <el-form-item label="Found Since">
           <el-col :span="4">
             <el-select
-              v-model="sprintData.issue.found_since"
+              v-model="sprintData.issue_config.since.field"
               clearable
               filterable
               @focus="listIssueFoundSince()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.issue_found_since"
+                v-for="item in ['string']"
                 :key="item"
                 :label="item"
                 :value="item">
@@ -257,7 +294,7 @@
           <el-col class="line" :span="1">-</el-col>
           <el-col :span="5">
             <el-select
-              v-model="sprintData.issue.found_since"
+              v-model="sprintData.issue_config.since.newfeature"
               multiple
               clearable
               filterable
@@ -276,7 +313,7 @@
           </el-col>
           <el-col :span="4">
             <el-select
-              v-model="sprintData.issue.found_since"
+              v-model="sprintData.issue_config.since.improve"
               multiple
               clearable
               filterable
@@ -295,7 +332,7 @@
           </el-col>
           <el-col :span="4">
             <el-select
-              v-model="sprintData.issue.found_since"
+              v-model="sprintData.issue_config.since.customer"
               multiple
               clearable
               filterable
@@ -314,7 +351,7 @@
           </el-col>
           <el-col :span="5">
             <el-select
-              v-model="sprintData.issue.found_since"
+              v-model="sprintData.issue_config.since.qamissed"
               multiple
               clearable
               filterable
@@ -335,7 +372,7 @@
         <el-form-item label="Issue Category">
           <el-col :span="4">
             <el-select
-              v-model="sprintData.issue.categories"
+              v-model="sprintData.issue_config.category.field"
               clearable
               filterable
               allow-create
@@ -344,7 +381,7 @@
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.issue_categories"
+                v-for="item in ['string']"
                 :key="item"
                 :label="item"
                 :value="item">
@@ -354,7 +391,7 @@
           <el-col class="line" :span="1">-</el-col>
           <el-col :span="6">
             <el-select
-              v-model="sprintData.issue.categories"
+              v-model="sprintData.issue_config.category.newfeature"
               multiple
               clearable
               filterable
@@ -373,7 +410,7 @@
           </el-col>
           <el-col :span="6">
             <el-select
-              v-model="sprintData.issue.categories"
+              v-model="sprintData.issue_config.category.regression"
               multiple
               clearable
               filterable
@@ -392,7 +429,7 @@
           </el-col>
           <el-col :span="6">
             <el-select
-              v-model="sprintData.issue.categories"
+              v-model="sprintData.issue_config.category.previous"
               multiple
               clearable
               filterable
@@ -413,46 +450,44 @@
         <el-form-item label="Issue Status">
           <el-col :span="4">
             <el-select
-              v-model="sprintData.issue.statuses.fixing"
-              multiple
+              v-model="sprintData.issue_config.status.field"
               filterable
               clearable
-              allow-create
               default-first-option
               @focus="listIssueStatus()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
                 v-for="item in selection.issue_statuses"
-                :key="item.key"
+                :key="item.value"
                 :label="item.value"
-                :value="item.value">
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
           <el-col class="line" :span="1">-</el-col>
           <el-col :span="6">
             <el-select
-              v-model="sprintData.issue.statuses.fixing"
+              v-model="sprintData.issue_config.status.fixing"
               multiple
               filterable
               clearable
               allow-create
               default-first-option
-              @focus="listIssueStatus()"
+              @focus="listIssueStatusValue()"
               placeholder="Fixing"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_statuses"
-                :key="item.key"
+                v-for="item in selection.issue_statuses_value"
+                :key="item.value"
                 :label="item.value"
-                :value="item.value">
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
           <el-col :span="6">
             <el-select
-              v-model="sprintData.issue.statuses.fixed"
+              v-model="sprintData.issue_config.status.fixed"
               multiple
               filterable
               clearable
@@ -461,16 +496,16 @@
               placeholder="Fixed"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_statuses"
-                :key="item.key"
+                v-for="item in selection.issue_statuses_value"
+                :key="item.value"
                 :label="item.value"
-                :value="item.value">
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
           <el-col :span="6">
             <el-select
-              v-model="sprintData.issue.statuses.verified"
+              v-model="sprintData.issue_config.status.verified"
               multiple
               filterable
               clearable
@@ -479,10 +514,10 @@
               placeholder="Verified"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_statuses"
-                :key="item.key"
+                v-for="item in selection.issue_statuses_value"
+                :key="item.value"
                 :label="item.value"
-                :value="item.value">
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -502,6 +537,7 @@ import projectSvc from '@/services/projectSvc'
 import sprintSvc from '@/services/sprintSvc'
 import issueSvc from '@/services/issueSvc'
 export default {
+  name: 'tttt',
   props: {
     sprintTableData: {
       type: Array
@@ -526,30 +562,100 @@ export default {
         projects: [],
         rcs: [],
         issue_types: [],
+        issue_types_statuses: [],
         issue_found_since: [],
         issue_categories: [],
-        issue_statuses: []
+        issue_statuses: [],
+        issue_statuses_value: []
       },
+      // sprintData: {
+      //       project_id: '',
+      //       name: '',
+      //       version: '',
+      //       requirements: [],
+      //       rcs: [],
+      //       issue: {
+      //         types: [],
+      //         found_since: [],
+      //         statuses: {
+      //           fixing: [],
+      //           fixed: [],
+      //           verified: []
+      //         },
+      //         categories: []
+      //       },
+      //       case: {}
+      //     }
+      //   }
+      // }
       sprintData: {
-        project_id: '',
         name: '',
-        version: '',
-        requirements: [],
-        rcs: [],
-        issue: {
-          types: [],
-          found_since: [],
-          statuses: {
-            fixing: [],
+        project_id: '',
+        case_config: {},
+        issue_config: {
+          category: {
+            field: '',
+            newfeature: [],
+            previous: [],
+            regression: []
+          },
+          rc: {
+            field: '',
+            value: []
+          },
+          requirement: {
+            field: '',
+            value: []
+          },
+          since: {
+            field: '',
+            customer: [],
+            improve: [],
+            newfeature: [],
+            qamissed: []
+          },
+          sprint: {
+            field: '',
+            value: []
+          },
+          status: {
+            field: '',
             fixed: [],
+            fixing: [],
             verified: []
           },
-          categories: []
-        },
-        case: {}
+          type: {
+            field: '',
+            value: []
+          },
+          version: {
+            field: '',
+            value: []
+          }
+        }
       }
     }
   },
+  //     sprintData: {
+  //       project_id: '',
+  //       name: '',
+  //       version: '',
+  //       requirements: [],
+  //       rcs: [],
+  //       issue: {
+  //         types: [],
+  //         found_since: [],
+  //         statuses: {
+  //           fixing: [],
+  //           fixed: [],
+  //           verified: []
+  //         },
+  //         categories: []
+  //       },
+  //       case: {}
+  //     }
+  //   }
+  // },
   methods: {
     listProject () {
       projectSvc.listProject()
@@ -562,30 +668,12 @@ export default {
           this.selection.projects = []
         })
     },
-    listIssueStatus () {
-      projectSvc.getProject(this.sprintData.project_id)
-        .then((response) => {
-          console.log(response)
-          trackerSvc.listTrackerIssueStatus(response.data.detail.tracker.issue.id)
-            .then((response) => {
-              console.log(response)
-              this.selection.issue_statuses = response.data.detail.results
-            })
-            .catch((error) => {
-              this.$message.error(String(error))
-              this.selection.issue_statuses = []
-            })
-        })
-        .catch((error) => {
-          this.$message.error(String(error))
-        })
-    },
     listIssueType () {
       projectSvc.getProject(this.sprintData.project_id)
         .then((response) => {
           console.log(response)
-          console.log(response.data.detail.tracker.issue.id)
-          trackerSvc.listTrackerIssueType(response.data.detail.tracker.issue.id)
+          console.log(response.data.detail.issue_tracker.tracker_id)
+          trackerSvc.listTrackerIssueType(response.data.detail.issue_tracker.tracker_id)
             .then((response) => {
               this.selection.issue_types = response.data.detail.results
             })
@@ -597,6 +685,63 @@ export default {
           this.$message.error(String(error))
         })
     },
+    listIssueTypeStatus () {
+      projectSvc.getProject(this.sprintData.project_id)
+        .then((response) => {
+          console.log(response)
+          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.type.field)
+            .then((response) => {
+              console.log(response)
+              this.selection.issue_types_statuses = response.data.detail.results
+            })
+            .catch((error) => {
+              this.$message.error(String(error))
+              this.selection.issue_types_statuses = []
+            })
+        })
+        .catch((error) => {
+          this.$message.error(String(error))
+        })
+    },
+    listIssueStatusValue () {
+      projectSvc.getProject(this.sprintData.project_id)
+        .then((response) => {
+          console.log(response)
+          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.status.field)
+            .then((response) => {
+              console.log(response)
+              this.selection.issue_statuses_value = response.data.detail.results
+            })
+            .catch((error) => {
+              this.$message.error(String(error))
+              this.selection.issue_statuses_value = []
+            })
+        })
+        .catch((error) => {
+          this.$message.error(String(error))
+        })
+    },
+    listIssueStatus () {
+      projectSvc.getProject(this.sprintData.project_id)
+        .then((response) => {
+          console.log(response)
+          console.log(response.data.detail.issue_tracker.tracker_id)
+          trackerSvc.listTrackerIssueType(response.data.detail.issue_tracker.tracker_id)
+            .then((response) => {
+              this.selection.issue_statuses = response.data.detail.results
+            })
+            .catch((error) => {
+              this.$message.error(String(error))
+            })
+        })
+        .catch((error) => {
+          this.$message.error(String(error))
+        })
+    },
+
+    // listIssueStatus () {
+    //   this.selection.issue_statuses = ['fixed', 'backlog', 'new', 'fixing', 'verified']
+    // },
     listRC () {
       this.selection.rcs = ['RC1', 'RC2', 'RC3', 'RC4', 'RC5']
     },
@@ -660,37 +805,85 @@ export default {
       sprintSvc.getSprint(sprintId)
         .then((response) => {
           console.log(response.data.detail)
-          this.sprintData.id = response.data.detail.id
           this.sprintData.name = response.data.detail.name
           this.sprintData.project_id = response.data.detail.project_id
-          this.sprintData.version = response.data.detail.version
-          this.sprintData.requirements = response.data.detail.requirements
-          this.sprintData.rcs = response.data.detail.rcs
-          this.sprintData.issue = response.data.detail.issue
-          this.sprintData.case = response.data.detail.case
+          this.sprintData.case_config = response.data.detail.case_config
+          this.sprintData.issue_config = response.data.detail.issue_config
+          this.sprintData.id = response.data.detail.id
+          // this.sprintData.name = response.data.detail.name
+          // this.sprintData.project_id = response.data.detail.project_id
+          // this.sprintData.version = response.data.detail.version
+          // this.sprintData.requirements = response.data.detail.requirements
+          // this.sprintData.rcs = response.data.detail.rcs
+          // this.sprintData.issue = response.data.detail.issue
+          // this.sprintData.case = response.data.detail.case
         })
         .catch((error) => {
           this.$message.error(String(error))
         })
     },
     initSprint () {
-      this.sprintData.id = ''
       this.sprintData.name = ''
       this.sprintData.project_id = ''
-      this.sprintData.version = ''
-      this.sprintData.requirements = []
-      this.sprintData.rcs = []
-      this.sprintData.issue = {
-        types: [],
-        found_since: [],
-        statuses: {
-          fixing: [],
+      this.sprintData.case_config = {}
+      this.sprintData.issue_config = {
+        category: {
+          field: '',
+          newfeature: [],
+          previous: [],
+          regression: []
+        },
+        rc: {
+          field: '',
+          value: []
+        },
+        requirement: {
+          field: '',
+          value: []
+        },
+        since: {
+          field: '',
+          customer: [],
+          improve: [],
+          newfeature: [],
+          qamissed: []
+        },
+        sprint: {
+          field: '',
+          value: []
+        },
+        status: {
+          field: '',
           fixed: [],
+          fixing: [],
           verified: []
         },
-        categories: []
+        type: {
+          field: '',
+          value: []
+        },
+        version: {
+          field: '',
+          value: []
+        }
       }
-      this.sprintData.case = {}
+      this.sprintData.id = ''
+      // this.sprintData.name = ''
+      // this.sprintData.project_id = ''
+      // this.sprintData.version = ''
+      // this.sprintData.requirements = []
+      // this.sprintData.rcs = []
+      // this.sprintData.issue = {
+      //   types: [],
+      //   found_since: [],
+      //   statuses: {
+      //     fixing: [],
+      //     fixed: [],
+      //     verified: []
+      //   },
+      //   categories: []
+      // }
+      // this.sprintData.case = {}
     },
     syncSprintIssue (sprintId) {
       console.log('Sync issue status of sprint ' + sprintId)

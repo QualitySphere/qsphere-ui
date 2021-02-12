@@ -16,10 +16,10 @@
         :border="true"
         style="width: 100%;">
         <el-table-column prop="name" label="Project" width="200"></el-table-column>
-        <el-table-column prop="tracker.issue.name" label="Issue Tracker" width=""></el-table-column>
-        <el-table-column prop="project.issue.key" label="Issue Project" width=""></el-table-column>
-        <el-table-column prop="tracker.case.name" label="Case Tracker" width=""></el-table-column>
-        <el-table-column prop="project.case.key" label="Case Project" width=""></el-table-column>
+        <el-table-column prop="issue_tracker.tracker_name" label="Issue Tracker" width=""></el-table-column>
+        <el-table-column prop="issue_tracker.project_name" label="Issue Project" width=""></el-table-column>
+        <el-table-column prop="case_tracker.tracker_name" label="Case Tracker" width=""></el-table-column>
+        <el-table-column prop="case_tracker.project_name" label="Case Project" width=""></el-table-column>
         <el-table-column
           label="Active"
           width="100">
@@ -87,7 +87,7 @@
         </el-form-item>
         <el-form-item label="Issue Project">
           <el-select
-            v-model="projectData.project.issue.key"
+            v-model="projectData.project.issue"
             @focus="listIssueTrackerProject()"
             filterable
             clearable
@@ -97,7 +97,7 @@
               v-for="item in issueTrackerProjects"
               :key="item.key"
               :label="item.value"
-              :value="item.key">
+              :value="item">
             </el-option>
           </el-select>
         </el-form-item>
@@ -119,7 +119,7 @@
         </el-form-item>
         <el-form-item label="Case Project">
           <el-select
-            v-model="projectData.project.case.key"
+            v-model="projectData.project.case"
             @focus="listCaseTrackerProject()"
             filterable
             clearable
@@ -129,7 +129,7 @@
               v-for="item in caseTrackerProjects"
               :key="item.key"
               :label="item.value"
-              :value="item.key">
+              :value="item">
             </el-option>
           </el-select>
         </el-form-item>
@@ -183,10 +183,8 @@ export default {
         },
         project: {
           issue: {
-            key: ''
           },
           case: {
-            key: ''
           }
         },
         status: ''
@@ -209,14 +207,14 @@ export default {
         })
     },
     listIssueTrackerProject () {
-      trackerSvc.listTrackerProject(this.projectData.tracker.issue.id)
+      return trackerSvc.listTrackerProject(this.projectData.tracker.issue.id)
         .then((response) => {
           this.issueTrackerProjects = response.data.detail.results
           console.log(this.issueTrackerProjects)
         })
     },
     listCaseTrackerProject () {
-      trackerSvc.listTrackerProject(this.projectData.tracker.case.id)
+      return trackerSvc.listTrackerProject(this.projectData.tracker.case.id)
         .then((response) => {
           this.caseTrackerProjects = response.data.detail.results
           console.log(this.caseTrackerProjects)
@@ -277,8 +275,36 @@ export default {
           console.log(response.data.detail)
           this.projectData.id = response.data.detail.id
           this.projectData.name = response.data.detail.name
-          this.projectData.tracker = response.data.detail.tracker
-          this.projectData.project = response.data.detail.project
+          this.projectData.tracker = {
+            case: {
+              id: response.data.detail.case_tracker.tracker_id
+            },
+            issue: {
+              id: response.data.detail.issue_tracker.tracker_id
+            }
+          }
+          this.listIssueTrackerProject()
+            .then(() => {
+              const issue = this.issueTrackerProjects.find((projectTemp) => projectTemp.key === response.data.detail.issue_tracker.project_key)
+              this.projectData.project.issue = issue
+            })
+          this.listCaseTrackerProject()
+            .then(() => {
+              const caseTemp = this.caseTrackerProjects.find((projectTemp) => projectTemp.key === response.data.detail.case_tracker.project_key)
+              console.log(caseTemp)
+              console.log(response.data.detail.case_tracker.project_key)
+              this.projectData.project.case = caseTemp
+            })
+          // this.projectData.project = {
+          //   case: {
+          //     key: response.data.detail.case_tracker.project_key,
+          //     value: response.data.detail.case_tracker.project_value
+          //   },
+          //   issue: {
+          //     key: response.data.detail.issue_tracker.project_key,
+          //     value: response.data.detail.issue_tracker.project_value
+          //   }
+          // }
         })
         .catch((error) => {
           this.$message.error(String(error))
