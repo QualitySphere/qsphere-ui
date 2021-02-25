@@ -102,13 +102,14 @@
               v-model="sprintData.issue_config.sprint.field"
               filterable
               clearable
+              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in ['string']"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.issue_config_field"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -120,13 +121,14 @@
               filterable
               clearable
               allow-create
+              @focus="listSprintValue()"
               placeholder="Value"
               style="width: 100%;">
               <el-option
-                v-for="item in sprintData.issue_config.sprint.value"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.sprintValue"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -137,13 +139,14 @@
               v-model="sprintData.issue_config.requirement.field"
               filterable
               clearable
+              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in ['string']"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.issue_config_field"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -155,13 +158,14 @@
               filterable
               clearable
               allow-create
+              @focus="listRequirementValue()"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
-                v-for="item in sprintData.issue_config.requirement.value"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.requirementValue"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -172,13 +176,14 @@
               v-model="sprintData.issue_config.version.field"
               filterable
               clearable
+              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in ['string']"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.issue_config_field"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -190,13 +195,14 @@
               filterable
               clearable
               allow-create
+              @focus="listVersionValue()"
               placeholder="Value"
               style="width: 100%;">
               <el-option
-                v-for="item in sprintData.issue_config.version.value"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.versionValue"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -207,13 +213,14 @@
               v-model="sprintData.issue_config.rc.field"
               filterable
               clearable
+              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in ['string']"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.issue_config_field"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -229,10 +236,10 @@
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.rcs"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.rcValue"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -243,11 +250,11 @@
               v-model="sprintData.issue_config.type.field"
               clearable
               filterable
-              @focus="listIssueType()"
+              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.issue_types"
+                v-for="item in selection.issue_config_field"
                 :key="item.value"
                 :label="item.value"
                 :value="item.key">
@@ -262,11 +269,11 @@
               clearable
               filterable
               allow-create
-              @focus="listIssueTypeStatus()"
+              @focus="listTypeValue()"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.issue_types_statuses"
+                v-for="item in selection.typeValue"
                 :key="item.value"
                 :label="item.value"
                 :value="item.key">
@@ -280,14 +287,14 @@
               v-model="sprintData.issue_config.since.field"
               clearable
               filterable
-              @focus="listIssueFoundSince()"
+              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in ['string']"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.issue_config_field"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -300,14 +307,14 @@
               filterable
               allow-create
               default-first-option
-              @focus="listIssueFoundSince()"
+              @focus="listSinceValue()"
               placeholder="NewFeature"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_found_since"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.sinceValue"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -319,14 +326,14 @@
               filterable
               allow-create
               default-first-option
-              @focus="listIssueFoundSince()"
+              @focus="listSinceValue()"
               placeholder="Improve"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_found_since"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.sinceValue"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -338,14 +345,14 @@
               filterable
               allow-create
               default-first-option
-              @focus="listIssueFoundSince()"
+              @focus="listSinceValue()"
               placeholder="Customer"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_found_since"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.sinceValue"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -357,14 +364,14 @@
               filterable
               allow-create
               default-first-option
-              @focus="listIssueFoundSince()"
+              @focus="listSinceValue()"
               placeholder="QaMissed"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_found_since"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.sinceValue"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -377,14 +384,14 @@
               filterable
               allow-create
               default-first-option
-              @focus="listIssueCategories()"
+              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in ['string']"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.issue_config_field"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -397,14 +404,14 @@
               filterable
               allow-create
               default-first-option
-              @focus="listIssueCategories()"
+              @focus="listCategoryValue()"
               placeholder="NewFeature"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_categories"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.categoryValue"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -416,14 +423,14 @@
               filterable
               allow-create
               default-first-option
-              @focus="listIssueCategories()"
+              @focus="listCategoryValue()"
               placeholder="Regression"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_categories"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.categoryValue"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -435,14 +442,14 @@
               filterable
               allow-create
               default-first-option
-              @focus="listIssueCategories()"
+              @focus="listCategoryValue()"
               placeholder="Previous"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_categories"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selection.categoryValue"
+                :key="item.value"
+                :label="item.value"
+                :value="item.key">
               </el-option>
             </el-select>
           </el-col>
@@ -454,11 +461,11 @@
               filterable
               clearable
               default-first-option
-              @focus="listIssueStatus()"
+              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.issue_statuses"
+                v-for="item in selection.issue_config_field"
                 :key="item.value"
                 :label="item.value"
                 :value="item.key">
@@ -474,11 +481,11 @@
               clearable
               allow-create
               default-first-option
-              @focus="listIssueStatusValue()"
+              @focus="listStatusValue()"
               placeholder="Fixing"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_statuses_value"
+                v-for="item in selection.statusValue"
                 :key="item.value"
                 :label="item.value"
                 :value="item.key">
@@ -496,7 +503,7 @@
               placeholder="Fixed"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_statuses_value"
+                v-for="item in selection.statusValue"
                 :key="item.value"
                 :label="item.value"
                 :value="item.key">
@@ -514,7 +521,7 @@
               placeholder="Verified"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.issue_statuses_value"
+                v-for="item in selection.statusValue"
                 :key="item.value"
                 :label="item.value"
                 :value="item.key">
@@ -560,13 +567,22 @@ export default {
       labelPosition: 'right',
       selection: {
         projects: [],
-        rcs: [],
-        issue_types: [],
-        issue_types_statuses: [],
-        issue_found_since: [],
-        issue_categories: [],
-        issue_statuses: [],
-        issue_statuses_value: []
+        // rcs: [],
+        // issue_types: [],
+        // issue_types_statuses: [],
+        // issue_found_since: [],
+        // issue_categories: [],
+        // issue_statuses: [],
+        // issue_statuses_value: [],
+        issue_config_field: [],
+        categoryValue: [],
+        rcValue: [],
+        requirementValue: [],
+        sinceValue: [],
+        sprintValue: [],
+        statusValue: [],
+        typeValue: [],
+        versionValue: []
       },
       // sprintData: {
       //       project_id: '',
@@ -668,14 +684,14 @@ export default {
           this.selection.projects = []
         })
     },
-    listIssueType () {
+    listIssueConfigField () {
       projectSvc.getProject(this.sprintData.project_id)
         .then((response) => {
           console.log(response)
           console.log(response.data.detail.issue_tracker.tracker_id)
           trackerSvc.listTrackerIssueType(response.data.detail.issue_tracker.tracker_id)
             .then((response) => {
-              this.selection.issue_types = response.data.detail.results
+              this.selection.issue_config_field = response.data.detail.results
             })
             .catch((error) => {
               this.$message.error(String(error))
@@ -685,72 +701,197 @@ export default {
           this.$message.error(String(error))
         })
     },
-    listIssueTypeStatus () {
+    listSprintValue () {
+      projectSvc.getProject(this.sprintData.project_id)
+        .then((response) => {
+          console.log(response)
+          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.sprint.field)
+            .then((response) => {
+              console.log(response)
+              this.selection.sprintValue = response.data.detail.results
+            })
+            .catch((error) => {
+              this.$message.error(String(error))
+              this.selection.sprintValue = []
+            })
+        })
+        .catch((error) => {
+          this.$message.error(String(error))
+        })
+    },
+    listRequirementValue () {
+      projectSvc.getProject(this.sprintData.project_id)
+        .then((response) => {
+          console.log(response)
+          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.requirement.field)
+            .then((response) => {
+              console.log(response)
+              this.selection.requirementValue = response.data.detail.results
+            })
+            .catch((error) => {
+              this.$message.error(String(error))
+              this.selection.requirementValue = []
+            })
+        })
+        .catch((error) => {
+          this.$message.error(String(error))
+        })
+    },
+    listVersionValue () {
+      projectSvc.getProject(this.sprintData.project_id)
+        .then((response) => {
+          console.log(response)
+          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.version.field)
+            .then((response) => {
+              console.log(response)
+              this.selection.versionValue = response.data.detail.results
+            })
+            .catch((error) => {
+              this.$message.error(String(error))
+              this.selection.versionValue = []
+            })
+        })
+        .catch((error) => {
+          this.$message.error(String(error))
+        })
+    },
+    listRC () {
+      projectSvc.getProject(this.sprintData.project_id)
+        .then((response) => {
+          console.log(response)
+          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.rc.field)
+            .then((response) => {
+              console.log(response)
+              this.selection.rcValue = response.data.detail.results
+            })
+            .catch((error) => {
+              this.$message.error(String(error))
+              this.selection.rcValue = []
+            })
+        })
+        .catch((error) => {
+          this.$message.error(String(error))
+        })
+    },
+    // listIssueType () {
+    //   projectSvc.getProject(this.sprintData.project_id)
+    //     .then((response) => {
+    //       console.log(response)
+    //       console.log(response.data.detail.issue_tracker.tracker_id)
+    //       trackerSvc.listTrackerIssueType(response.data.detail.issue_tracker.tracker_id)
+    //         .then((response) => {
+    //           this.selection.issue_types = response.data.detail.results
+    //         })
+    //         .catch((error) => {
+    //           this.$message.error(String(error))
+    //         })
+    //     })
+    //     .catch((error) => {
+    //       this.$message.error(String(error))
+    //     })
+    // },
+    listTypeValue () {
       projectSvc.getProject(this.sprintData.project_id)
         .then((response) => {
           console.log(response)
           trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.type.field)
             .then((response) => {
               console.log(response)
-              this.selection.issue_types_statuses = response.data.detail.results
+              this.selection.typeValue = response.data.detail.results
             })
             .catch((error) => {
               this.$message.error(String(error))
-              this.selection.issue_types_statuses = []
+              this.selection.typeValue = []
             })
         })
         .catch((error) => {
           this.$message.error(String(error))
         })
     },
-    listIssueStatusValue () {
+    listSinceValue () {
+      projectSvc.getProject(this.sprintData.project_id)
+        .then((response) => {
+          console.log(response)
+          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.since.field)
+            .then((response) => {
+              console.log(response)
+              this.selection.sinceValue = response.data.detail.results
+            })
+            .catch((error) => {
+              this.$message.error(String(error))
+              this.selection.sinceValue = []
+            })
+        })
+        .catch((error) => {
+          this.$message.error(String(error))
+        })
+    },
+    listCategoryValue () {
+      projectSvc.getProject(this.sprintData.project_id)
+        .then((response) => {
+          console.log(response)
+          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.category.field)
+            .then((response) => {
+              console.log(response)
+              this.selection.categoryValue = response.data.detail.results
+            })
+            .catch((error) => {
+              this.$message.error(String(error))
+              this.selection.categoryValue = []
+            })
+        })
+        .catch((error) => {
+          this.$message.error(String(error))
+        })
+    },
+    listStatusValue () {
       projectSvc.getProject(this.sprintData.project_id)
         .then((response) => {
           console.log(response)
           trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.status.field)
             .then((response) => {
               console.log(response)
-              this.selection.issue_statuses_value = response.data.detail.results
+              this.selection.statusValue = response.data.detail.results
             })
             .catch((error) => {
               this.$message.error(String(error))
-              this.selection.issue_statuses_value = []
+              this.selection.statusValue = []
             })
         })
         .catch((error) => {
           this.$message.error(String(error))
         })
     },
-    listIssueStatus () {
-      projectSvc.getProject(this.sprintData.project_id)
-        .then((response) => {
-          console.log(response)
-          console.log(response.data.detail.issue_tracker.tracker_id)
-          trackerSvc.listTrackerIssueType(response.data.detail.issue_tracker.tracker_id)
-            .then((response) => {
-              this.selection.issue_statuses = response.data.detail.results
-            })
-            .catch((error) => {
-              this.$message.error(String(error))
-            })
-        })
-        .catch((error) => {
-          this.$message.error(String(error))
-        })
-    },
+    // listIssueStatus () {
+    //   projectSvc.getProject(this.sprintData.project_id)
+    //     .then((response) => {
+    //       console.log(response)
+    //       console.log(response.data.detail.issue_tracker.tracker_id)
+    //       trackerSvc.listTrackerIssueType(response.data.detail.issue_tracker.tracker_id)
+    //         .then((response) => {
+    //           this.selection.issue_statuses = response.data.detail.results
+    //         })
+    //         .catch((error) => {
+    //           this.$message.error(String(error))
+    //         })
+    //     })
+    //     .catch((error) => {
+    //       this.$message.error(String(error))
+    //     })
+    // },
 
     // listIssueStatus () {
     //   this.selection.issue_statuses = ['fixed', 'backlog', 'new', 'fixing', 'verified']
     // },
-    listRC () {
-      this.selection.rcs = ['RC1', 'RC2', 'RC3', 'RC4', 'RC5']
-    },
-    listIssueFoundSince () {
-      this.selection.issue_found_since = ['RegressionImprove', 'QAMissed', 'NewFeature', 'Customer']
-    },
-    listIssueCategories () {
-      this.selection.issue_categories = ['Regression', 'Previous', 'NewFeature', 'Others']
-    },
+    // listRC () {
+    //   this.selection.rcs = ['RC1', 'RC2', 'RC3', 'RC4', 'RC5']
+    // },
+    // listIssueFoundSince () {
+    //   this.selection.issue_found_since = ['RegressionImprove', 'QAMissed', 'NewFeature', 'Customer']
+    // },
+    // listIssueCategories () {
+    //   this.selection.issue_categories = ['Regression', 'Previous', 'NewFeature', 'Others']
+    // },
     submit () {
       console.log(this.sprintData)
       if (this.sprintData.id) {
