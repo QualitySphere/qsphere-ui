@@ -48,7 +48,7 @@
           width="150">
           <template slot-scope="scope">
             <el-button
-              @click="editSprint(scope.row.id); dialogSprintVisible = true"
+              @click="editSprint(scope.row.id)"
               size="mini"
               type="primary"
               icon="el-icon-edit"
@@ -88,7 +88,7 @@
             style="width: 100%;">
             <el-option
               v-for="item in selection.projects"
-              :key="item.name"
+              :key="item.id"
               :label="item.name"
               :value="item.id">
             </el-option>
@@ -107,7 +107,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.issue_config_field"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -126,7 +126,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.sprintValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -144,7 +144,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.issue_config_field"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -163,7 +163,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.requirementValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -181,7 +181,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.issue_config_field"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -200,7 +200,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.versionValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -218,7 +218,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.issue_config_field"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -237,7 +237,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.rcValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -255,7 +255,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.issue_config_field"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -274,7 +274,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.typeValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -292,7 +292,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.issue_config_field"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -312,7 +312,7 @@
               style="width: 98%;">
               <el-option
                 v-for="item in selection.sinceValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -331,7 +331,7 @@
               style="width: 98%;">
               <el-option
                 v-for="item in selection.sinceValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -350,7 +350,7 @@
               style="width: 98%;">
               <el-option
                 v-for="item in selection.sinceValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -369,7 +369,7 @@
               style="width: 98%;">
               <el-option
                 v-for="item in selection.sinceValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -389,7 +389,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.issue_config_field"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -409,7 +409,7 @@
               style="width: 98%;">
               <el-option
                 v-for="item in selection.categoryValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -428,7 +428,7 @@
               style="width: 98%;">
               <el-option
                 v-for="item in selection.categoryValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -447,7 +447,7 @@
               style="width: 98%;">
               <el-option
                 v-for="item in selection.categoryValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -466,7 +466,7 @@
               style="width: 100%;">
               <el-option
                 v-for="item in selection.issue_config_field"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -486,7 +486,7 @@
               style="width: 98%;">
               <el-option
                 v-for="item in selection.statusValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -504,7 +504,7 @@
               style="width: 98%;">
               <el-option
                 v-for="item in selection.statusValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -522,7 +522,7 @@
               style="width: 98%;">
               <el-option
                 v-for="item in selection.statusValue"
-                :key="item.value"
+                :key="item.key"
                 :label="item.value"
                 :value="item.key">
               </el-option>
@@ -535,6 +535,7 @@
         <el-button @click="dialogSprintVisible = false" size="small">Cancel</el-button>
       </span>
     </el-dialog>
+    <editSprint :sprintID="selectedSprintId" @close="closeEditSprintModal" v-if="showEditSprintModal" />
   </div>
 </template>
 
@@ -543,8 +544,13 @@ import trackerSvc from '@/services/trackerSvc'
 import projectSvc from '@/services/projectSvc'
 import sprintSvc from '@/services/sprintSvc'
 import issueSvc from '@/services/issueSvc'
+import editSprint from '@/components/modal/editSprint.vue'
+
 export default {
   name: 'tttt',
+  components: {
+    editSprint
+  },
   props: {
     sprintTableData: {
       type: Array
@@ -567,13 +573,6 @@ export default {
       labelPosition: 'right',
       selection: {
         projects: [],
-        // rcs: [],
-        // issue_types: [],
-        // issue_types_statuses: [],
-        // issue_found_since: [],
-        // issue_categories: [],
-        // issue_statuses: [],
-        // issue_statuses_value: [],
         issue_config_field: [],
         categoryValue: [],
         rcValue: [],
@@ -649,7 +648,9 @@ export default {
             value: []
           }
         }
-      }
+      },
+      selectedSprintId: '',
+      showEditSprintModal: false
     }
   },
   //     sprintData: {
@@ -941,27 +942,32 @@ export default {
         })
     },
     editSprint (sprintId) {
-      this.listProject()
-      console.log('Edit sprint: ' + sprintId)
-      sprintSvc.getSprint(sprintId)
-        .then((response) => {
-          console.log(response.data.detail)
-          this.sprintData.name = response.data.detail.name
-          this.sprintData.project_id = response.data.detail.project_id
-          this.sprintData.case_config = response.data.detail.case_config
-          this.sprintData.issue_config = response.data.detail.issue_config
-          this.sprintData.id = response.data.detail.id
-          // this.sprintData.name = response.data.detail.name
-          // this.sprintData.project_id = response.data.detail.project_id
-          // this.sprintData.version = response.data.detail.version
-          // this.sprintData.requirements = response.data.detail.requirements
-          // this.sprintData.rcs = response.data.detail.rcs
-          // this.sprintData.issue = response.data.detail.issue
-          // this.sprintData.case = response.data.detail.case
-        })
-        .catch((error) => {
-          this.$message.error(String(error))
-        })
+      this.selectedSprintId = sprintId
+      this.showEditSprintModal = true
+      // this.listProject()
+      // console.log('Edit sprint: ' + sprintId)
+      // sprintSvc.getSprint(sprintId)
+      //   .then((response) => {
+      //     console.log(response.data.detail)
+      //     this.sprintData.name = response.data.detail.name
+      //     this.sprintData.project_id = response.data.detail.project_id
+      //     this.sprintData.case_config = response.data.detail.case_config
+      //     this.sprintData.issue_config = response.data.detail.issue_config
+      //     this.sprintData.id = response.data.detail.id
+      //     // this.sprintData.name = response.data.detail.name
+      //     // this.sprintData.project_id = response.data.detail.project_id
+      //     // this.sprintData.version = response.data.detail.version
+      //     // this.sprintData.requirements = response.data.detail.requirements
+      //     // this.sprintData.rcs = response.data.detail.rcs
+      //     // this.sprintData.issue = response.data.detail.issue
+      //     // this.sprintData.case = response.data.detail.case
+      //   })
+      //   .catch((error) => {
+      //     this.$message.error(String(error))
+      //   })
+    },
+    closeEditSprintModal () {
+      this.showEditSprintModal = false
     },
     initSprint () {
       this.sprintData.name = ''
