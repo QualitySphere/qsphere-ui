@@ -1,4 +1,4 @@
-FROM node AS npm-build
+FROM node:15 AS npm-build
 COPY . .
 RUN npm install && \
     npm run build
