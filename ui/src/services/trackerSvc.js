@@ -59,6 +59,22 @@ export default {
     return axios.get('/api/tracker/' + trackerId + '/projects')
   },
 
+  listTrackerSprint (trackerId) {
+    return axios.get('/api/tracker/' + trackerId + '/sprints')
+  },
+
+  listTrackerIssueField (trackerId) {
+    return axios.get('/api/tracker/' + trackerId + '/issue_fields')
+  },
+
+  listTrackerIssueFieldValue (trackerId, fieldId) {
+    return axios.get('/api/tracker/' + trackerId + '/issue_field', {
+      params: {
+        field: fieldId
+      }
+    })
+  },
+
   listTrackerIssueType (trackerId) {
     return axios.get('/api/tracker/' + trackerId + '/issue_fields')
   },

@@ -4,7 +4,7 @@ RUN npm install && \
     npm run build
 
 FROM nginx:1.17-alpine
-LABEL maintainer="shiwei@baoxian-sz.com" \
+LABEL maintainer="v.stone@163.com" \
       organization="Truth & Insurance Office"
 WORKDIR /usr/share/nginx/html
 COPY --from=npm-build ./dist/ ./qsphere-ui/

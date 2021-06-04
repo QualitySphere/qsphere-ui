@@ -121,7 +121,7 @@
               filterable
               clearable
               allow-create
-              @focus="listSprintValue()"
+              @focus="listIssueConfigValue('sprintValue')"
               placeholder="Value"
               style="width: 100%;">
               <el-option
@@ -690,12 +690,30 @@ export default {
         .then((response) => {
           console.log(response)
           console.log(response.data.detail.issue_tracker.tracker_id)
-          trackerSvc.listTrackerIssueType(response.data.detail.issue_tracker.tracker_id)
+          trackerSvc.listTrackerIssueField(response.data.detail.issue_tracker.tracker_id)
             .then((response) => {
               this.selection.issue_config_field = response.data.detail.results
             })
             .catch((error) => {
               this.$message.error(String(error))
+            })
+        })
+        .catch((error) => {
+          this.$message.error(String(error))
+        })
+    },
+    listIssueConfigValue (configName) {
+      projectSvc.getProject(this.sprintData.project_id)
+        .then((response) => {
+          console.log(response)
+          trackerSvc.listTrackerIssueFieldValue(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.requirement.field)
+            .then((response) => {
+              console.log(response)
+              this.selection.$configName = response.data.detail.results
+            })
+            .catch((error) => {
+                this.$message.error(String(error))
+                this.selection.$configName = []
             })
         })
         .catch((error) => {
