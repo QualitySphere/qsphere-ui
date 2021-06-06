@@ -703,18 +703,18 @@ export default {
         })
     },
     listIssueConfigValue (configName) {
-      if ($configName === "sprintValue") {
+      if (configName === "sprintValue") {
         projectSvc.getProject(this.sprintData.project_id)
           .then((response) => {
             console.log(response)
             trackerSvc.listTrackerSprint(response.data.detail.issue_tracker.tracker_id)
               .then((response) => {
                 console.log(response)
-                this.selection.$configName = response.data.detail.results
+                this.selection[configName] = response.data.detail.results
               })
               .catch((error) => {
                   this.$message.error(String(error))
-                  this.selection.$configName = []
+                  this.selection[configName] = []
               })
           })
           .catch((error) => {
@@ -724,14 +724,14 @@ export default {
         projectSvc.getProject(this.sprintData.project_id)
           .then((response) => {
             console.log(response)
-            trackerSvc.listTrackerIssueFieldValue(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.$configName.field)
+            trackerSvc.listTrackerIssueFieldValue(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config[configName].field)
               .then((response) => {
                 console.log(response)
-                this.selection.$configName = response.data.detail.results
+                this.selection[configName] = response.data.detail.results
               })
               .catch((error) => {
                   this.$message.error(String(error))
-                  this.selection.$configName = []
+                  this.selection[configName] = []
               })
           })
           .catch((error) => {
