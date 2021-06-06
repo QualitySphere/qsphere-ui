@@ -703,22 +703,41 @@ export default {
         })
     },
     listIssueConfigValue (configName) {
-      projectSvc.getProject(this.sprintData.project_id)
-        .then((response) => {
-          console.log(response)
-          trackerSvc.listTrackerIssueFieldValue(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.requirement.field)
-            .then((response) => {
-              console.log(response)
-              this.selection.$configName = response.data.detail.results
-            })
-            .catch((error) => {
-                this.$message.error(String(error))
-                this.selection.$configName = []
-            })
-        })
-        .catch((error) => {
-          this.$message.error(String(error))
-        })
+      if ($configName === "sprintValue") {
+        projectSvc.getProject(this.sprintData.project_id)
+          .then((response) => {
+            console.log(response)
+            trackerSvc.listTrackerSprint(response.data.detail.issue_tracker.tracker_id)
+              .then((response) => {
+                console.log(response)
+                this.selection.$configName = response.data.detail.results
+              })
+              .catch((error) => {
+                  this.$message.error(String(error))
+                  this.selection.$configName = []
+              })
+          })
+          .catch((error) => {
+            this.$message.error(String(error))
+          })
+      } else {
+        projectSvc.getProject(this.sprintData.project_id)
+          .then((response) => {
+            console.log(response)
+            trackerSvc.listTrackerIssueFieldValue(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.$configName.field)
+              .then((response) => {
+                console.log(response)
+                this.selection.$configName = response.data.detail.results
+              })
+              .catch((error) => {
+                  this.$message.error(String(error))
+                  this.selection.$configName = []
+              })
+          })
+          .catch((error) => {
+            this.$message.error(String(error))
+          })
+      }
     },
     listSprintValue () {
       projectSvc.getProject(this.sprintData.project_id)
