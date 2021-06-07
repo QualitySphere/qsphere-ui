@@ -84,6 +84,7 @@
             filterable
             clearable
             @focus="listProject()"
+            @change="listIssueConfigField()"
             placeholder="Select Project"
             style="width: 100%;">
             <el-option
@@ -102,7 +103,6 @@
               v-model="sprintData.issue_config.sprint.field"
               filterable
               clearable
-              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -121,11 +121,11 @@
               filterable
               clearable
               allow-create
-              @focus="listIssueConfigValue('sprintValue')"
+              @focus="listIssueConfigValue('sprints')"
               placeholder="Value"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.sprintValue"
+                v-for="item in selection.sprints"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -139,7 +139,6 @@
               v-model="sprintData.issue_config.requirement.field"
               filterable
               clearable
-              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -158,11 +157,11 @@
               filterable
               clearable
               allow-create
-              @focus="listRequirementValue()"
+              @focus="listIssueConfigValue('requirements')"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.requirementValue"
+                v-for="item in selection.requirements"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -176,7 +175,6 @@
               v-model="sprintData.issue_config.version.field"
               filterable
               clearable
-              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -195,11 +193,11 @@
               filterable
               clearable
               allow-create
-              @focus="listVersionValue()"
+              @focus="listIssueConfigValue('versions')"
               placeholder="Value"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.versionValue"
+                v-for="item in selection.versions"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -213,7 +211,6 @@
               v-model="sprintData.issue_config.rc.field"
               filterable
               clearable
-              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -232,11 +229,11 @@
               filterable
               clearable
               allow-create
-              @focus="listRC()"
+              @focus="listIssueConfigValue('rcs')"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.rcValue"
+                v-for="item in selection.rcs"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -250,7 +247,6 @@
               v-model="sprintData.issue_config.type.field"
               clearable
               filterable
-              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -269,11 +265,11 @@
               clearable
               filterable
               allow-create
-              @focus="listTypeValue()"
+              @focus="listIssueConfigValue('types')"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.typeValue"
+                v-for="item in selection.types"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -287,7 +283,6 @@
               v-model="sprintData.issue_config.since.field"
               clearable
               filterable
-              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -307,11 +302,11 @@
               filterable
               allow-create
               default-first-option
-              @focus="listSinceValue()"
+              @focus="listIssueConfigValue('since')"
               placeholder="NewFeature"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.sinceValue"
+                v-for="item in selection.since"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -326,11 +321,10 @@
               filterable
               allow-create
               default-first-option
-              @focus="listSinceValue()"
               placeholder="Improve"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.sinceValue"
+                v-for="item in selection.since"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -345,11 +339,10 @@
               filterable
               allow-create
               default-first-option
-              @focus="listSinceValue()"
               placeholder="Customer"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.sinceValue"
+                v-for="item in selection.since"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -364,11 +357,10 @@
               filterable
               allow-create
               default-first-option
-              @focus="listSinceValue()"
               placeholder="QaMissed"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.sinceValue"
+                v-for="item in selection.since"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -384,7 +376,6 @@
               filterable
               allow-create
               default-first-option
-              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -404,11 +395,11 @@
               filterable
               allow-create
               default-first-option
-              @focus="listCategoryValue()"
+              @focus="listIssueConfigValue('categories')"
               placeholder="NewFeature"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.categoryValue"
+                v-for="item in selection.categories"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -423,11 +414,10 @@
               filterable
               allow-create
               default-first-option
-              @focus="listCategoryValue()"
               placeholder="Regression"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.categoryValue"
+                v-for="item in selection.categories"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -442,11 +432,10 @@
               filterable
               allow-create
               default-first-option
-              @focus="listCategoryValue()"
               placeholder="Previous"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.categoryValue"
+                v-for="item in selection.categories"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -461,7 +450,6 @@
               filterable
               clearable
               default-first-option
-              @focus="listIssueConfigField()"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -481,11 +469,11 @@
               clearable
               allow-create
               default-first-option
-              @focus="listStatusValue()"
+              @focus="listIssueConfigValue('statuses')"
               placeholder="Fixing"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.statusValue"
+                v-for="item in selection.statuses"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -574,14 +562,14 @@ export default {
       selection: {
         projects: [],
         issue_config_field: [],
-        categoryValue: [],
-        rcValue: [],
-        requirementValue: [],
-        sinceValue: [],
-        sprintValue: [],
-        statusValue: [],
-        typeValue: [],
-        versionValue: []
+        categories: [],
+        rcs: [],
+        requirements: [],
+        since: [],
+        sprints: [],
+        statuses: [],
+        types: [],
+        versions: []
       },
       // sprintData: {
       //       project_id: '',
@@ -703,7 +691,7 @@ export default {
         })
     },
     listIssueConfigValue (configName) {
-      if (configName === 'sprintValue') {
+      if (configName === 'sprints') {
         projectSvc.getProject(this.sprintData.project_id)
           .then((response) => {
             console.log(response)
