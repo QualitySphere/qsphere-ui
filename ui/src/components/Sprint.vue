@@ -88,7 +88,7 @@
             placeholder="Select Project"
             style="width: 100%;">
             <el-option
-              v-for="item in selection.projects"
+              v-for="item in selection.project"
               :key="item.id"
               :label="item.name"
               :value="item.id">
@@ -121,11 +121,11 @@
               filterable
               clearable
               allow-create
-              @focus="listIssueConfigValue('sprints')"
+              @focus="listIssueConfigValue('sprint')"
               placeholder="Value"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.sprints"
+                v-for="item in selection.sprint"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -157,11 +157,11 @@
               filterable
               clearable
               allow-create
-              @focus="listIssueConfigValue('requirements')"
+              @focus="listIssueConfigValue('requirement')"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.requirements"
+                v-for="item in selection.requirement"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -193,11 +193,11 @@
               filterable
               clearable
               allow-create
-              @focus="listIssueConfigValue('versions')"
+              @focus="listIssueConfigValue('version')"
               placeholder="Value"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.versions"
+                v-for="item in selection.version"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -229,11 +229,11 @@
               filterable
               clearable
               allow-create
-              @focus="listIssueConfigValue('rcs')"
+              @focus="listIssueConfigValue('rc')"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.rcs"
+                v-for="item in selection.rc"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -265,11 +265,11 @@
               clearable
               filterable
               allow-create
-              @focus="listIssueConfigValue('types')"
+              @focus="listIssueConfigValue('type')"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
-                v-for="item in selection.types"
+                v-for="item in selection.type"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -395,11 +395,11 @@
               filterable
               allow-create
               default-first-option
-              @focus="listIssueConfigValue('categories')"
+              @focus="listIssueConfigValue('categorie')"
               placeholder="NewFeature"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.categories"
+                v-for="item in selection.categorie"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -469,11 +469,11 @@
               clearable
               allow-create
               default-first-option
-              @focus="listIssueConfigValue('statuses')"
+              @focus="listIssueConfigValue('status')"
               placeholder="Fixing"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.statuses"
+                v-for="item in selection.status"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -560,16 +560,16 @@ export default {
       dialogSprintVisible: false,
       labelPosition: 'right',
       selection: {
-        projects: [],
+        project: [],
         issue_config_field: [],
-        categories: [],
-        rcs: [],
-        requirements: [],
+        category: [],
+        rc: [],
+        requirement: [],
         since: [],
-        sprints: [],
-        statuses: [],
-        types: [],
-        versions: []
+        sprint: [],
+        statuse: [],
+        type: [],
+        version: []
       },
       // sprintData: {
       //       project_id: '',
@@ -666,11 +666,11 @@ export default {
       projectSvc.listProject()
         .then((response) => {
           console.log(response)
-          this.selection.projects = response.data.detail.results
+          this.selection.project = response.data.detail.results
         })
         .catch((error) => {
           this.$message.error(String(error))
-          this.selection.projects = []
+          this.selection.project = []
         })
     },
     listIssueConfigField () {
