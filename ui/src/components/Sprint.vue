@@ -1,54 +1,5 @@
 <template>
-  <div>
-    <el-row style="margin-bottom: 15px" type="flex">
-      <el-button plain round type="primary" size="small" @click="initSprint(); dialogSprintVisible = true">
-        <i class="el-icon-plus el-icon--left"></i>New Sprint
-      </el-button>
-      <el-tooltip placement="bottom-start">
-        <div slot="content" v-html="content"></div>
-        <i class="el-icon-question el-icon--right"></i>
-      </el-tooltip>
-    </el-row>
-    <el-row>
-      <el-table
-        v-loading="sprintTableLoading"
-        :data="sprintTableData"
-        :border="true"
-        style="width: 100%;">
-        <el-table-column prop="name" label="Sprint" width="200"></el-table-column>
-        <el-table-column prop="project_name" label="Project" width=""></el-table-column>
-        <el-table-column
-          label="Sync"
-          width="100">
-          <template slot-scope="scope">
-            <el-button
-              @click="syncSprintIssue(scope.row.id)"
-              size="mini"
-              icon="el-icon-refresh"
-              circle>
-            </el-button>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="Active"
-          width="100">
-          <template slot-scope="scope">
-            <el-tooltip :content="'Status is ' + scope.row.status">
-              <el-switch
-                v-model="scope.row.status"
-                @change="activeSprint(scope.row.id, scope.row.status)"
-                active-value='active'
-                inactive-value='disable'>
-              </el-switch>
-            </el-tooltip>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="Action"
-          width="150">
-          <template slot-scope="scope">
-            <el-button
-              @click="editSprint(scope.row.id)"
+  <div> <el-row style="margin-bottom: 15px" type="flex"> <el-button plain round type="primary" size="small" @click="initSprint(); dialogSprintVisible = true"> <i class="el-icon-plus el-icon--left"></i>New Sprint </el-button> <el-tooltip placement="bottom-start"> <div slot="content" v-html="content"></div> <i class="el-icon-question el-icon--right"></i> </el-tooltip> </el-row> <el-row> <el-table v-loading="sprintTableLoading" :data="sprintTableData" :border="true" style="width: 100%;"> <el-table-column prop="name" label="Sprint" width="200"></el-table-column> <el-table-column prop="project_name" label="Project" width=""></el-table-column> <el-table-column label="Sync" width="100"> <template slot-scope="scope"> <el-button @click="syncSprintIssue(scope.row.id)" size="mini" icon="el-icon-refresh" circle> </el-button> </template> </el-table-column> <el-table-column label="Active" width="100"> <template slot-scope="scope"> <el-tooltip :content="'Status is ' + scope.row.status"> <el-switch v-model="scope.row.status" @change="activeSprint(scope.row.id, scope.row.status)" active-value='active' inactive-value='disable'> </el-switch> </el-tooltip> </template> </el-table-column> <el-table-column label="Action" width="150"> <template slot-scope="scope"> <el-button @click="editSprint(scope.row.id)"
               size="mini"
               type="primary"
               icon="el-icon-edit"
@@ -103,6 +54,7 @@
               v-model="sprintData.issue_config.sprint.field"
               filterable
               clearable
+              @change="listIssueConfigValue('sprint')"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -121,7 +73,6 @@
               filterable
               clearable
               allow-create
-              @focus="listIssueConfigValue('sprint')"
               placeholder="Value"
               style="width: 100%;">
               <el-option
@@ -139,6 +90,7 @@
               v-model="sprintData.issue_config.requirement.field"
               filterable
               clearable
+              @change="listIssueConfigValue('requirement')"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -157,7 +109,6 @@
               filterable
               clearable
               allow-create
-              @focus="listIssueConfigValue('requirement')"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
@@ -175,6 +126,7 @@
               v-model="sprintData.issue_config.version.field"
               filterable
               clearable
+              @change="listIssueConfigValue('version')"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -193,7 +145,6 @@
               filterable
               clearable
               allow-create
-              @focus="listIssueConfigValue('version')"
               placeholder="Value"
               style="width: 100%;">
               <el-option
@@ -211,6 +162,7 @@
               v-model="sprintData.issue_config.rc.field"
               filterable
               clearable
+              @change="listIssueConfigValue('rc')"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -229,7 +181,6 @@
               filterable
               clearable
               allow-create
-              @focus="listIssueConfigValue('rc')"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
@@ -247,6 +198,7 @@
               v-model="sprintData.issue_config.type.field"
               clearable
               filterable
+              @change="listIssueConfigValue('type')"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -265,7 +217,6 @@
               clearable
               filterable
               allow-create
-              @focus="listIssueConfigValue('type')"
               placeholder="Value(s)"
               style="width: 100%;">
               <el-option
@@ -283,6 +234,7 @@
               v-model="sprintData.issue_config.since.field"
               clearable
               filterable
+              @change="listIssueConfigValue('since')"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -302,7 +254,6 @@
               filterable
               allow-create
               default-first-option
-              @focus="listIssueConfigValue('since')"
               placeholder="NewFeature"
               style="width: 98%;">
               <el-option
@@ -376,6 +327,7 @@
               filterable
               allow-create
               default-first-option
+              @change="listIssueConfigValue('category')"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -395,11 +347,10 @@
               filterable
               allow-create
               default-first-option
-              @focus="listIssueConfigValue('categorie')"
               placeholder="NewFeature"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.categorie"
+                v-for="item in selection.category"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -417,7 +368,7 @@
               placeholder="Regression"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.categories"
+                v-for="item in selection.category"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -435,7 +386,7 @@
               placeholder="Previous"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.categories"
+                v-for="item in selection.category"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -450,6 +401,7 @@
               filterable
               clearable
               default-first-option
+              @change="listIssueConfigValue('requirement')"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -491,7 +443,7 @@
               placeholder="Fixed"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.statusValue"
+                v-for="item in selection.status"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -509,7 +461,7 @@
               placeholder="Verified"
               style="width: 98%;">
               <el-option
-                v-for="item in selection.statusValue"
+                v-for="item in selection.status"
                 :key="item.key"
                 :label="item.value"
                 :value="item.key">
@@ -691,7 +643,7 @@ export default {
         })
     },
     listIssueConfigValue (configName) {
-      if (configName === 'sprints') {
+      if (configName === 'sprint') {
         projectSvc.getProject(this.sprintData.project_id)
           .then((response) => {
             console.log(response)
