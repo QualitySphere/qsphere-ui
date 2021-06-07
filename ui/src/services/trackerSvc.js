@@ -67,10 +67,11 @@ export default {
     return axios.get('/api/tracker/' + trackerId + '/issue_fields')
   },
 
-  listTrackerIssueFieldValue (trackerId, fieldId) {
+  listTrackerIssueFieldValue (trackerId, projectId, fieldId) {
     return axios.get('/api/tracker/' + trackerId + '/issue_field', {
       params: {
-        field: fieldId
+        field: fieldId,
+        project: projectId
       }
     })
   },
