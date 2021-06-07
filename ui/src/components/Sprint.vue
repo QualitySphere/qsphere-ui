@@ -703,7 +703,7 @@ export default {
         })
     },
     listIssueConfigValue (configName) {
-      if (configName === "sprintValue") {
+      if (configName === 'sprintValue') {
         projectSvc.getProject(this.sprintData.project_id)
           .then((response) => {
             console.log(response)
