@@ -671,7 +671,7 @@ export default {
               .catch((error) => {
                 this.$message.error(String(error))
                 this.selection[configName] = []
-            })
+              })
           })
           .catch((error) => {
             this.$message.error(String(error))
