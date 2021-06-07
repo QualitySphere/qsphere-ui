@@ -713,8 +713,8 @@ export default {
                 this.selection[configName] = response.data.detail.results
               })
               .catch((error) => {
-                  this.$message.error(String(error))
-                  this.selection[configName] = []
+                this.$message.error(String(error))
+                this.selection[configName] = []
               })
           })
           .catch((error) => {
