@@ -401,7 +401,7 @@
               filterable
               clearable
               default-first-option
-              @change="listIssueConfigValue('requirement')"
+              @change="listIssueConfigValue('status')"
               placeholder="Field"
               style="width: 100%;">
               <el-option
@@ -421,7 +421,6 @@
               clearable
               allow-create
               default-first-option
-              @focus="listIssueConfigValue('status')"
               placeholder="Fixing"
               style="width: 98%;">
               <el-option
@@ -679,78 +678,78 @@ export default {
           })
       }
     },
-    listSprintValue () {
-      projectSvc.getProject(this.sprintData.project_id)
-        .then((response) => {
-          console.log(response)
-          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.sprint.field)
-            .then((response) => {
-              console.log(response)
-              this.selection.sprintValue = response.data.detail.results
-            })
-            .catch((error) => {
-              this.$message.error(String(error))
-              this.selection.sprintValue = []
-            })
-        })
-        .catch((error) => {
-          this.$message.error(String(error))
-        })
-    },
-    listRequirementValue () {
-      projectSvc.getProject(this.sprintData.project_id)
-        .then((response) => {
-          console.log(response)
-          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.requirement.field)
-            .then((response) => {
-              console.log(response)
-              this.selection.requirementValue = response.data.detail.results
-            })
-            .catch((error) => {
-              this.$message.error(String(error))
-              this.selection.requirementValue = []
-            })
-        })
-        .catch((error) => {
-          this.$message.error(String(error))
-        })
-    },
-    listVersionValue () {
-      projectSvc.getProject(this.sprintData.project_id)
-        .then((response) => {
-          console.log(response)
-          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.version.field)
-            .then((response) => {
-              console.log(response)
-              this.selection.versionValue = response.data.detail.results
-            })
-            .catch((error) => {
-              this.$message.error(String(error))
-              this.selection.versionValue = []
-            })
-        })
-        .catch((error) => {
-          this.$message.error(String(error))
-        })
-    },
-    listRC () {
-      projectSvc.getProject(this.sprintData.project_id)
-        .then((response) => {
-          console.log(response)
-          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.rc.field)
-            .then((response) => {
-              console.log(response)
-              this.selection.rcValue = response.data.detail.results
-            })
-            .catch((error) => {
-              this.$message.error(String(error))
-              this.selection.rcValue = []
-            })
-        })
-        .catch((error) => {
-          this.$message.error(String(error))
-        })
-    },
+    // listSprintValue () {
+    //   projectSvc.getProject(this.sprintData.project_id)
+    //     .then((response) => {
+    //       console.log(response)
+    //       trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.sprint.field)
+    //         .then((response) => {
+    //           console.log(response)
+    //           this.selection.sprintValue = response.data.detail.results
+    //         })
+    //         .catch((error) => {
+    //           this.$message.error(String(error))
+    //           this.selection.sprintValue = []
+    //         })
+    //     })
+    //     .catch((error) => {
+    //       this.$message.error(String(error))
+    //     })
+    // },
+    // listRequirementValue () {
+    //   projectSvc.getProject(this.sprintData.project_id)
+    //     .then((response) => {
+    //       console.log(response)
+    //       trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.requirement.field)
+    //         .then((response) => {
+    //           console.log(response)
+    //           this.selection.requirementValue = response.data.detail.results
+    //         })
+    //         .catch((error) => {
+    //           this.$message.error(String(error))
+    //           this.selection.requirementValue = []
+    //         })
+    //     })
+    //     .catch((error) => {
+    //       this.$message.error(String(error))
+    //     })
+    // },
+    // listVersionValue () {
+    //   projectSvc.getProject(this.sprintData.project_id)
+    //     .then((response) => {
+    //       console.log(response)
+    //       trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.version.field)
+    //         .then((response) => {
+    //           console.log(response)
+    //           this.selection.versionValue = response.data.detail.results
+    //         })
+    //         .catch((error) => {
+    //           this.$message.error(String(error))
+    //           this.selection.versionValue = []
+    //         })
+    //     })
+    //     .catch((error) => {
+    //       this.$message.error(String(error))
+    //     })
+    // },
+    // listRC () {
+    //   projectSvc.getProject(this.sprintData.project_id)
+    //     .then((response) => {
+    //       console.log(response)
+    //       trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.rc.field)
+    //         .then((response) => {
+    //           console.log(response)
+    //           this.selection.rcValue = response.data.detail.results
+    //         })
+    //         .catch((error) => {
+    //           this.$message.error(String(error))
+    //           this.selection.rcValue = []
+    //         })
+    //     })
+    //     .catch((error) => {
+    //       this.$message.error(String(error))
+    //     })
+    // },
     // listIssueType () {
     //   projectSvc.getProject(this.sprintData.project_id)
     //     .then((response) => {
@@ -768,78 +767,78 @@ export default {
     //       this.$message.error(String(error))
     //     })
     // },
-    listTypeValue () {
-      projectSvc.getProject(this.sprintData.project_id)
-        .then((response) => {
-          console.log(response)
-          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.type.field)
-            .then((response) => {
-              console.log(response)
-              this.selection.typeValue = response.data.detail.results
-            })
-            .catch((error) => {
-              this.$message.error(String(error))
-              this.selection.typeValue = []
-            })
-        })
-        .catch((error) => {
-          this.$message.error(String(error))
-        })
-    },
-    listSinceValue () {
-      projectSvc.getProject(this.sprintData.project_id)
-        .then((response) => {
-          console.log(response)
-          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.since.field)
-            .then((response) => {
-              console.log(response)
-              this.selection.sinceValue = response.data.detail.results
-            })
-            .catch((error) => {
-              this.$message.error(String(error))
-              this.selection.sinceValue = []
-            })
-        })
-        .catch((error) => {
-          this.$message.error(String(error))
-        })
-    },
-    listCategoryValue () {
-      projectSvc.getProject(this.sprintData.project_id)
-        .then((response) => {
-          console.log(response)
-          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.category.field)
-            .then((response) => {
-              console.log(response)
-              this.selection.categoryValue = response.data.detail.results
-            })
-            .catch((error) => {
-              this.$message.error(String(error))
-              this.selection.categoryValue = []
-            })
-        })
-        .catch((error) => {
-          this.$message.error(String(error))
-        })
-    },
-    listStatusValue () {
-      projectSvc.getProject(this.sprintData.project_id)
-        .then((response) => {
-          console.log(response)
-          trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.status.field)
-            .then((response) => {
-              console.log(response)
-              this.selection.statusValue = response.data.detail.results
-            })
-            .catch((error) => {
-              this.$message.error(String(error))
-              this.selection.statusValue = []
-            })
-        })
-        .catch((error) => {
-          this.$message.error(String(error))
-        })
-    },
+    // listTypeValue () {
+    //   projectSvc.getProject(this.sprintData.project_id)
+    //     .then((response) => {
+    //       console.log(response)
+    //       trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.type.field)
+    //         .then((response) => {
+    //           console.log(response)
+    //           this.selection.typeValue = response.data.detail.results
+    //         })
+    //         .catch((error) => {
+    //           this.$message.error(String(error))
+    //           this.selection.typeValue = []
+    //         })
+    //     })
+    //     .catch((error) => {
+    //       this.$message.error(String(error))
+    //     })
+    // },
+    // listSinceValue () {
+    //   projectSvc.getProject(this.sprintData.project_id)
+    //     .then((response) => {
+    //       console.log(response)
+    //       trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.since.field)
+    //         .then((response) => {
+    //           console.log(response)
+    //           this.selection.sinceValue = response.data.detail.results
+    //         })
+    //         .catch((error) => {
+    //           this.$message.error(String(error))
+    //           this.selection.sinceValue = []
+    //         })
+    //     })
+    //     .catch((error) => {
+    //       this.$message.error(String(error))
+    //     })
+    // },
+    // listCategoryValue () {
+    //   projectSvc.getProject(this.sprintData.project_id)
+    //     .then((response) => {
+    //       console.log(response)
+    //       trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.category.field)
+    //         .then((response) => {
+    //           console.log(response)
+    //           this.selection.categoryValue = response.data.detail.results
+    //         })
+    //         .catch((error) => {
+    //           this.$message.error(String(error))
+    //           this.selection.categoryValue = []
+    //         })
+    //     })
+    //     .catch((error) => {
+    //       this.$message.error(String(error))
+    //     })
+    // },
+    // listStatusValue () {
+    //   projectSvc.getProject(this.sprintData.project_id)
+    //     .then((response) => {
+    //       console.log(response)
+    //       trackerSvc.listTrackerIssueStatus(response.data.detail.issue_tracker.tracker_id, this.sprintData.issue_config.status.field)
+    //         .then((response) => {
+    //           console.log(response)
+    //           this.selection.statusValue = response.data.detail.results
+    //         })
+    //         .catch((error) => {
+    //           this.$message.error(String(error))
+    //           this.selection.statusValue = []
+    //         })
+    //     })
+    //     .catch((error) => {
+    //       this.$message.error(String(error))
+    //     })
+    // },
     // listIssueStatus () {
     //   projectSvc.getProject(this.sprintData.project_id)
     //     .then((response) => {
